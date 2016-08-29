@@ -10,7 +10,7 @@ use self::rand::{thread_rng, Rng};
 pub struct Sentence(Vec<String>);
 pub type Prefix = (String, String);
 #[derive(Debug)]
-pub struct Database(HashMap<Prefix, Vec<String>>);
+pub struct Dictionary(HashMap<Prefix, Vec<String>>);
 
 pub enum MarkovError {
   InsufficientLength,
@@ -66,12 +66,13 @@ impl Clone for Sentence {
   }
 }
 
-impl Database {
-  pub fn new() -> Database {
-    Database(HashMap::<Prefix, Vec<String>>::new())
+impl Dictionary {
+  /// Create a new (empty) Dictionary.
+  pub fn new() -> Dictionary {
+    Dictionary(HashMap::<Prefix, Vec<String>>::new())
   }
 
-  /// Take a Sentence and add it to the database for text generation.
+  /// Take a Sentence and add it to the dictionary for text generation.
   pub fn parse(&mut self, sen: Sentence) -> Result<(), MarkovError> {
     let Sentence(ref raw) = sen;
 
@@ -98,6 +99,7 @@ impl Database {
     Ok(())
   }
 
+  /// Gets a random Prefix from the dictionary.
   pub fn rand_prefix(&self) -> Option<Prefix> {
     if self.0.is_empty() {
       None
@@ -112,7 +114,7 @@ impl Database {
     }
   }
   
-  /// Get the completions for a Prefix.
+  /// Get the available completions for a Prefix.
   pub fn complete(&self, prefix: &Prefix) -> Option<&Vec<String>> {
     if let Some(value) = self.0.get(&prefix) {
       Some(value)
