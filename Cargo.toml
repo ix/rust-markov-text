@@ -2,6 +2,11 @@
 name = "markov-text"
 version = "0.2.1"
 authors = ["Rose <lain@lain.org.uk>"]
+homepage = "https://github.com/rxse/rust-markov-text"
+description = "A markov text library for Rust which also allows generation from specific words."
+keywords = ["markov"]
+license = "MIT"
+documentation = "https://rxse.github.io/rust-markov-text/markov-text"
 
 [dependencies]
 rand = "0.3.14"
