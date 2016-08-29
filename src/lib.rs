@@ -6,8 +6,10 @@ use std::collections::HashMap;
 use std::fmt;
 use self::rand::{thread_rng, Rng};
 
+#[derive(Debug)]
 pub struct Sentence(Vec<String>);
 pub type Prefix = (String, String);
+#[derive(Debug)]
 pub struct Database(HashMap<Prefix, Vec<String>>);
 
 pub enum MarkovError {
