@@ -98,6 +98,20 @@ impl Database {
     Ok(())
   }
 
+  pub fn rand_prefix(&self) -> Option<Prefix> {
+    if self.0.is_empty() {
+      None
+    }
+
+    else {
+      let mut rng = thread_rng();
+      match rand::sample(&mut rng, self.0.iter(), 1).iter().nth(0) {
+        Some(p) => Some(p.0.clone()),
+        None => None
+      }
+    }
+  }
+  
   /// Get the completions for a Prefix.
   pub fn complete(&self, prefix: &Prefix) -> Option<&Vec<String>> {
     if let Some(value) = self.0.get(&prefix) {
